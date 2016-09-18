@@ -1,0 +1,24 @@
+{
+  "name": "conditional-callback",
+  "version": "0.1.0",
+  "description": "Call a function conditionally with a state-object of a certain shape.",
+  "main": "index.js",
+  "dependencies": {
+    "expect.js": "^0.3.1",
+    "mocha": "^3.0.2",
+    "ramda": "^0.22.1",
+    "sinon": "^1.17.5"
+  },
+  "devDependencies": {
+    "eslint": "^3.5.0",
+    "eslint-config-airbnb-base": "^7.1.0",
+    "eslint-plugin-import": "^1.15.0",
+    "expect.js": "^0.3.1",
+    "mocha": "^3.0.2"
+  },
+  "scripts": {
+    "test": "eslint . && mocha test.js"
+  },
+  "author": "Emanuel Kluge (https://www.emanuel-kluge.de/)",
+  "license": "MIT"
+}
