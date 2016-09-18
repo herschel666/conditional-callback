@@ -1,6 +1,8 @@
 Conditional Callback
 ====
 
+[![Build Status](https://travis-ci.org/herschel666/conditional-callback.svg?branch=master)](https://travis-ci.org/herschel666/conditional-callback)
+
 > Call a function conditionally with a state-object of a certain shape.
 
 When maintaining an implicit state during the runtime of your application, you might want to have a function — causing side-effects — called only, when the current state fulfills certain conditions.
@@ -11,13 +13,13 @@ If this describes your need, `conditional-callback` is your package!
 
 ## Installation
 
-Install it via NPM:
+Install it via [NPM](https://www.npmjs.com/package/conditional-callback):
 
 ```shell
 $ npm install -S conditional-callback
 ```
 
-Import it into your script with one of the following styles:
+Import it into your scripts with one of the following styles:
 
 ```javascript
 // ES2015 module syntax
@@ -32,7 +34,7 @@ const createConditionalCallback = require('conditional-callback');
 This could be the simple approach to handle the current state:
 
 ```javascript
-// Assume we have this function which expects a atate-object
+// Assume we have this function which expects a state-object
 // of a certain shape.
 const logCertainState = state => {
   if (state.log === true && typeof state.value === 'string') {
@@ -53,10 +55,10 @@ There are two problems with this approach:
 To address these issues, `createConditionalCallback` is here for the rescue:
 
 ```javascript
-// First of all describe the desired shape of the
+// First of all we describe the desired shape of the
 // state with a selector object.
 // The given keys reflect the keys of the state-object,
-// that shall be selected and passed to the callback function.
+// that are supposed to be selected and passed to the callback function.
 // The associated values are functions, validating the
 // state's values.
 const selector = {
@@ -64,20 +66,22 @@ const selector = {
   value: x => typeof x === 'string'
 };
 
-// Next, you define that callback function
-// without the nested condition.
+// Next, we define the callback function
+// without the nested condition. The passed in
+// state-object will have the properties
+// `log` and `value`.
 const callback = state => console.log('Current value:', state.value);
 
-// After that you combine both to a conditional callback. This
-// creates a new function, that takes a state-object and calls
-// the side-effect when the condition is fulfilled.
+// After that we combine both in a conditional callback. This
+// creates a new function, which takes a state-object and calls
+// the side-effect when the conditions are fulfilled.
 // It also always returns the passed in state-object without
 // touching it!!
 const conditionalCallback = createConditionalCallback(selector, callback);
 
-const invalidState = {...};
-const result = conditionalCallback(invalidState);
-// result === invalidState => `true`
+const someState = {...};
+const result = conditionalCallback(someState);
+// result === someState => `true`
 ```
 
 The derived function can now be used to have your side-effect function be called when the conditions are met.
@@ -99,7 +103,7 @@ const selector = {
 
 ### Having the callback always be called when the passed state is valid
 
-Given the example above you want to have the `value`-property of the state be logged to console every time the valid state is passed in. For this purpose, `createConditionalCallback` takes an optional third Boolean parameter `needsChange`, that indicates that the given state-object not only has to meet the conditions, but also has to be different than the previous one.
+Given the example above, we want to have the `value`-property of the state be logged to console every time the valid state is passed in. For this purpose, `createConditionalCallback` takes an optional third Boolean parameter `needsChange`, that indicates that the given state-object not only has to meet the conditions, but also has to be different than the previous one.
 
 By passing `false` as the third parameter this behaviour is deactivated and the callback is called every time a valid state-object is passed in.
 
