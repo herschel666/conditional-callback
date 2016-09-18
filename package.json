@@ -1,6 +1,6 @@
 {
   "name": "conditional-callback",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Call a function conditionally with a state-object of a certain shape.",
   "main": "index.js",
   "dependencies": {
